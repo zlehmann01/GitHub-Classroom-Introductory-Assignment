@@ -43,6 +43,10 @@ else
       echo "Question $(( $i+1 )) incorrect."
     fi
   done
-  echo "::set-output name=quiz_score::$score"
-  echo "::set-output name=incorrect_answers::$incorrect"
+# per GitHub, set-state and save-state functions are deprecated; 
+# see https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
+#  echo "::set-output name=quiz_score::$score"
+  run: echo "{name}={quiz_score::$score}" >> $GITHUB_OUTPUT
+#  echo "::set-output name=incorrect_answers::$incorrect"
+  run: echo "{name}={incorrect_answers::$incorrect}" >> $GITHUB_OUTPUT
 fi
